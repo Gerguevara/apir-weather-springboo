@@ -2,6 +2,7 @@ package com.hackerrank.weather.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -23,35 +24,25 @@ public class WeatherApiRestController {
 	WeatherService weatherService;
 
 
+	private static final String DATE_PATTERN = "yyyy-MM-dd";
+
 
 	@GetMapping("/weather")
 	public @ResponseBody List<Weather> weatherGetALL(
 			@RequestParam(required = false) String order,
-			@RequestParam(required = false) Date date
-	) {
-
-		System.out.println(date);
+			@RequestParam(required = false) List<String>  city,
+			@DateTimeFormat(pattern = DATE_PATTERN) Date date) {
 
 
+		System.out.println("city "+ city);
 
-
-		switch(order) {
-			case "asc":
-				return this.weatherService.findAll();
-			case "desc":
-				return this.weatherService.findAll();
-			default:
-				return this.weatherService.findAll();
-		}
-
-
+			return this.weatherService.findAll(order, city, date);
 	}
 
 
 	
 	@PostMapping("/weather")
 	public ResponseEntity<?> weather(@RequestBody Weather weatherRequest) {
-
 		Weather weather = null;
 		Map<String, Object> response = new HashMap<>();
 
@@ -71,10 +62,8 @@ public class WeatherApiRestController {
 
     @GetMapping("/weather/{id}")
     public ResponseEntity<?> weatherById(@PathVariable("id") Integer id){
-
 		Weather weather = null;
 		Map<String, Object> response = new HashMap<>();
-
 		try {
 			weather = this.weatherService.findeById(id);
 		} catch (DataAccessException e) {
