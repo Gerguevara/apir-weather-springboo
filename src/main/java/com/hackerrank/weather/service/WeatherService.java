@@ -1,6 +1,6 @@
 package com.hackerrank.weather.service;
 
-import java.util.Arrays;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -39,11 +39,9 @@ public class WeatherService {
 			if(!(city == null)){
 				System.out.println("entra en el arreglo");
 
-	//			for (String name : city) {
-	//				p = cb.and(p, cb.equal(root.get("city"), name));
-	//			}
-
-
+			for (String name : city) {
+					p = cb.and(p, cb.equal(root.get("city"), name));
+				}
 			}
 
 			/*if (!StringUtils.isEmpty(city)) {
