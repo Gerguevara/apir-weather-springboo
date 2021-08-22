@@ -32,10 +32,6 @@ public class WeatherApiRestController {
 			@RequestParam(required = false) String order,
 			@RequestParam(required = false) List<String>  city,
 			@DateTimeFormat(pattern = DATE_PATTERN) Date date) {
-
-
-		System.out.println("city "+ city);
-
 			return this.weatherService.findAll(order, city, date);
 	}
 

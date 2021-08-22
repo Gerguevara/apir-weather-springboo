@@ -1,5 +1,6 @@
 package com.hackerrank.weather.service;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -31,7 +32,6 @@ public class WeatherService {
 
 
 	public List<Weather> findAll(String order, List<String>  city, Date date  ) {
-
 
 		List<Weather> weather  = this._weatherRepo.findAll((Specification<Weather>)(root, cq, cb) -> {
 			Predicate p = cb.conjunction();
